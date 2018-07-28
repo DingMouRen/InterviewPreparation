@@ -1,0 +1,24 @@
+
+        /*检查权限*/
+        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+            /*申请权限*/
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.CALL_PHONE},requestCode);
+        }else {
+            call();/*开始打电话*/
+        }
+
+     /*向系统申请权限后的回调*/
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode){
+            case 1:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+                    /*权限申请成功，可以打电话了*/
+                    call();
+                }else {
+                    /*拒绝了权限申请*/
+                }
+                break;
+            default:
+        }
+    }
