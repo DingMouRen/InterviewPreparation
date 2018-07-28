@@ -1,0 +1,52 @@
+1.Intent
+
+    Intent：1.指定当前组件想要执行的动作 2.在不同组件之间传递数据。例如：启动activity 启动服务 发送广播
+
+    显示Intent:startActivity(context,xxx.class)
+    隐式Intent:不明确指定启动哪个activity,通过action和category，交由系统去分析Intent,找到合适的activity启动。只能指定一个action,但是可以指定多个category。data标签用来指定接收内容的格式，需要用Uri来解析
+    <intent-filter>
+                     <action android:name="android.intent.action.VIEW" />
+                     <action android:name="android.intent.action.SEND" />
+                     <category android:name="android.intent.category.DEFAULT" />
+                     <data android:mimeType="text/html"
+                           android:host="myHost.app"
+                           android:scheme="myScheme"
+                           android:port=8888
+                           android:path="xxxxx"/>
+    </intent-filter>
+
+    activity回传数据：startActivityForResult(intent,requestCode)   onActivityResult(requestCode,resultCode,intent)   setResult(resultCode,intent)
+
+2.activity生命周期
+
+    activity最多有四个状态：运行状态 暂停状态 停止状态 销毁状态
+    运行状态：系统不会回收此时状态的activity,除非奔溃
+    暂停状态：不再处于栈顶，部分可见但是不能交互。例如：悬浮于activity上对话框形式的activity,内存极低的情况下会回收此时的activity
+    停止状态:不再处于栈顶，完全不可见，也不能交互。系统会保存相应的状态和成员变量，并不完全可靠，其他地方需要内存，系统会回收掉停止状态的activity
+    销毁状态：系统最倾向于回收此时的activity
+
+    生命周期：
+    onCreate():创建时调用，用来加载布局，绑定事件
+    onStart():从完全不可见到可见时调用
+    onResume():完全可见，同时可以交互时调用。处于栈顶
+    onPause():去启动另一个activity时调用。1.释放掉消耗cap的资源 2.保存关键数据，不能做大数据的处理，不能影响新的栈顶活动
+    onStop():activity完全不可见时调用。启动对话框式activity时，onPause执行，onStop不会执行。释放资源，保证停止状态不会占用太多内存
+    onDestory():activity被销毁之前调用。finish()函数只是将activity移出返回栈，onDestroy()才是真正销毁activity占用的内存空间
+    onRestart():从停止状态到运行状态时调用，从不可见到完全可见
+    对话框形式的activity:
+    继承Activity可以去除actionBar,
+     <activity android:name=".SecondActivity"
+                android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+                />
+     继承AppcompatActivity的需要在style.xml中配置：
+     <style name="StyleSecondActivity" parent="Theme.AppCompat.Dialog">
+             <item name="windowNoTitle">true</item>
+     </style>
+
+3.启动模式
+
+    singleTop:处于栈顶时，不会创建新的activity,直接复用,不在栈顶的话，就会创建新的activity
+    singleTask:每次启动时系统都会检查返回栈中是否存在这个activity，有的话，就将这个activity上面的activity们统统出栈，没有就重新创建一个新的activity
+    singleInstance:可以实现共享activity实例的问题。所有应用都可以打开系统电话拨号界面，跟其他应用没有任何关系
+
+

@@ -1,0 +1,21 @@
+fragment与activity的生命周期并不是同步的，要看具体场景。
+activity开启新的activity的场景 --> onResume：先执行activity的，再执行所有的fragment(包括fragment嵌套的fragment)；onPause:先执行所有fragment的(包括fragment嵌套的fragment),再执行activity的
+hide()与show()场景下没有上面activity跳转的情况，不会执行被嵌套的fragment的任何回调函数
+
+1.fragment状态
+
+    运行状态:可见可交互的状态
+    暂停状态:activity进入暂停状态，fragment也会进入暂停状态。例如：悬浮于fragment上对话框形式的activity,
+    停止状态:1.activity进入停止状态，fragment也会进入停止状态，2.调用remove()或者replace()将fragment从activity移除，commit()之前调用addToBackStack()，fragment也会进入停止状态。停止状态是完全不可见的，系统有可能会回收fragment的内存
+    销毁状态:1.activity进入销毁状态，fragment也会进入销毁状态，2.调用remove()或者replace()将fragment从activity移除，commit()之前没有调用addToBackStack()，fragment也会进入停止状态。
+
+2.fragment附加的生命周期
+    onAttach():当fragment与activity建立关联时调用
+    onCreateView():fragment创建视图时调用
+    onActivityCreated():activity与fragment关联完毕时调用
+    onDestroyView():fragment的视图被移除时调用
+    onDetach():activity与fragment的关联解除时调用
+
+3.可见与不可见场景
+    FragmentPagerAdapter+ViewPager：setUserVisibleHint(boolean isVisibleToUser)
+    hide()与show():onHiddenChanged(boolean hidden)
