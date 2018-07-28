@@ -1,0 +1,15 @@
+1.广播种类
+    标准广播(sendBroadcast)：一种完全异步执行的广播。全局广播。发出广播后，所有的广播接收器几乎在同一时刻接收到这条广播，没有先后顺序，效率比较高，但是无法被截断。
+    有序广播(sendOrderedBroadcast)：一种同步执行的广播。全局广播。发出广播后，同一时刻只有一个广播接收器能接收到这条广播，当这个广播接收器的逻辑执行完毕后，广播才会继续广播。有先后顺序，优先级越高就可以先接收到广播，还可以截断广播。
+    继承BroadcastReceiver，实现onReceive(context,intent)方法
+    abortBroadcast()截断广播
+
+2.两种注册方式
+    动态注册：registerReceiver() unregisterReceiver()  根据intent的数据判断，进行相应的操作
+    静态注册:在配置文件中注册，通过intent-filter添加标识 action
+
+3.本地广播
+    LocalBroadcastManager.sendBroadcast(intent)发送本地广播，只有自己的应用才能接收到,异步执行的，可以同时接收到
+    LocalBroadcastManager.sendBroadcastSync(intent) 同步发送本地广播，可以被拦截
+    LocalBroadcastManager.registerReceiver(intent,filter) 注册本地广播
+    LocalBroadcastManager.unregisterReceiver(localReceiver) 注销本地广播

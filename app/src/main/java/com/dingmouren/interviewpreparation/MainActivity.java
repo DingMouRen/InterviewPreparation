@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         Log.e(TAG,"onResume");
         Log.e(TAG,"回退栈中的数量:"+fragmentManager.getBackStackEntryCount());
         demoFragment1.setFragment(new TestFragment("test"));
+
     }
 
     @Override
