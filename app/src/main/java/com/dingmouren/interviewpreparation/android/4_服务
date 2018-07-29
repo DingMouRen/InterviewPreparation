@@ -1,0 +1,43 @@
+1.服务：实现后台运行的解决方案。执行不用与用户交互且需要长期运行的任务。
+    一般服务运行在创建服务的应用程序进程中，当应用程序进程被杀死时，所有依赖与该进程的服务也会停止运行。
+    服务默认在主线程上运行，服务不会自动开启线程。
+    服务需要在配置文件中注册才能有效。
+
+2.异步消息处理机制
+    Message:线程间传递的消息。携带整型数据的字段:what arg1 arg2,携带对象的字段:obj
+    Handler:主要用于发送和处理消息。
+    MessageQueue:主要用于存放所有通过Handler发送的消息。每个线程只会有一个MessageQueue对象
+    Looper:是MessageQueue的管理者，调用Looper的loop()方法后，就会进入一个无限循环，每当发现MessageQueue中存在一个消息，就会将它取出，传递给Handler的handleMessage()方法中，每个线程只有一个Looper对象
+
+3.AsyncTask实现原理也是基于异步消息处理机制的。
+
+4.activity与服务进行通信
+
+5.前台服务：1.在系统内存不足时，防止服务被回收掉  2.天气预报应用的特殊需求。效果：前台服务会有一个正在运行的图标在系统状态栏显示，下拉状态栏可以看到更加详细的信息
+public class MyForegroundService extends Service {
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        Intent intent = new Intent(this,MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,0,intent,0);
+        Notification notification = new NotificationCompat.Builder(this)
+                .setContentTitle("前台服务")
+                .setContentText("前台服务内容")
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                .setContentIntent(pendingIntent)
+                .build();
+        startForeground(1,notification);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return super.onStartCommand(intent, flags, startId);
+    }
+}

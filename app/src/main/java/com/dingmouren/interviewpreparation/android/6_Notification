@@ -1,0 +1,25 @@
+1.通知：用于应用程序不在前台运行时，向用户发出提示信息。
+
+2.Intent与PendingIntent
+    Intent:倾向于立即执行某个动作
+    PendingIntent:倾向于在某个合适时机去执行某个动作，延迟 执行的Intent
+
+        Intent intent = new Intent(this,SecondActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this,0,intent,0);
+
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = new NotificationCompat.Builder(this)
+                .setContentTitle("通知")
+                /*设置大图片*/
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(getResources(),R.drawable.img_1)))
+                /*设置长文本*/
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("好佛十大富豪i都好好的发顺丰hi hi都十分史蒂芬是哦哈佛i是覅欧文是否hi文化覅我hi发时候覅我hi发hi我搜房和我i和佛二五的加偶放假哦i奇偶i人给个Joe"))
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                .setContentIntent(pendingIntent)/*s设置点击的PendingIntent*/
+                .setAutoCancel(true) /*点击了通知后，自动删除通知UI*/
+                .setDefaults(NotificationCompat.DEFAULT_ALL)/*铃声 震动等默认效果*/
+                .build();
+        manager.notify(1,notification);

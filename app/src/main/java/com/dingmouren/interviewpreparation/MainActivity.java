@@ -3,13 +3,24 @@ package com.dingmouren.interviewpreparation;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.IBinder;
 import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
@@ -18,11 +29,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.io.File;
+
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
 
     private FragmentManager fragmentManager;
     private DemoFragment demoFragment1,demoFragment2,demoFragment3,demoFragment4;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +113,88 @@ public class MainActivity extends AppCompatActivity {
         startActivity(new Intent(this,ThreeActivity.class));
     }
 
+    public void showNote(View view){
+
+        Intent intent = new Intent(this,SecondActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this,0,intent,0);
+
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = new NotificationCompat.Builder(this)
+                .setContentTitle("通知")
+                .setContentText("内容")
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                .setContentIntent(pendingIntent)/*s设置点击的PendingIntent*/
+                .setAutoCancel(true) /*点击了通知后，自动删除通知UI*/
+                .setSound(Uri.fromFile(new File("/system/media/audio/ringtones/Luna.ogg")))/*设置有通知的提示音*/
+                .setVibrate(new long[]{0,1000,1000,1000})/*设置通知来时的振动*/
+                .setLights(Color.GREEN,1000,1000)/*设置通知来时LED灯的闪烁*/
+//                .setDefaults(NotificationCompat.DEFAULT_ALL)/*铃声 震动等默认效果*/
+                .build();
+        manager.notify(1,notification);
+    }
+
+    private int mNotificationId = 1;
+    public void showNoteHigh(View view){
+        Intent intent = new Intent(this,SecondActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(MainActivity.this,0,intent,0);
+
+        NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        Notification notification = new NotificationCompat.Builder(this)
+                .setContentTitle("通知")
+                /*设置大图片*/
+                .setStyle(new NotificationCompat.BigPictureStyle().bigPicture(BitmapFactory.decodeResource(getResources(),R.drawable.img_1)))
+                /*设置长文本*/
+                .setStyle(new NotificationCompat.BigTextStyle().bigText("好佛十大富豪i都好好的发顺丰hi hi都十分史蒂芬是哦哈佛i是覅欧文是否hi文化覅我hi发时候覅我hi发hi我搜房和我i和佛二五的加偶放假哦i奇偶i人给个Joe"))
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setWhen(System.currentTimeMillis())
+                .setSmallIcon(R.mipmap.ic_launcher)
+                .setLargeIcon(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher))
+                .setContentIntent(pendingIntent)/*s设置点击的PendingIntent*/
+                .setAutoCancel(true) /*点击了通知后，自动删除通知UI*/
+                .setDefaults(NotificationCompat.DEFAULT_ALL)/*铃声 震动等默认效果*/
+                .build();
+        manager.notify(mNotificationId,notification);
+        mNotificationId++;
+    }
+
+    public void startMyService(View view){
+        Intent intent = new Intent(MainActivity.this,MyService.class);
+        startService(intent);
+    }
+
+    public void stopMyService(View view){
+        Intent intent = new Intent(MainActivity.this,MyService.class);
+        stopService(intent);
+    }
+
+    private MyDownLoadService.DownLoadBinder downLoadBinder;
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            downLoadBinder = (MyDownLoadService.DownLoadBinder) service;
+            downLoadBinder.startDownLoad();
+            downLoadBinder.getProgress();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
+    public void noteToService(View view){
+        Intent bindIntent = new Intent(MainActivity.this,MyDownLoadService.class);
+        bindService(bindIntent,connection,Context.BIND_AUTO_CREATE);
+    }
+
+    public void forgroundService(View view){
+        Intent intent = new Intent(MainActivity.this,MyForegroundService.class);
+        startService(intent);
+    }
+
+
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -133,6 +229,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         Log.e(TAG,"onPause");
+
+        Intent intent = new Intent(MainActivity.this,MyForegroundService.class);
+        stopService(intent);
     }
 
     @Override

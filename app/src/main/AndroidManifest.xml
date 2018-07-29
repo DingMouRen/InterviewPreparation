@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dingmouren.interviewpreparation">
     <uses-permission android:name="android.permission.READ_CONTACTS"/>
-
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,6 +22,19 @@
             android:launchMode="singleInstance"
             />
         <activity android:name=".ThreeActivity"/>
+
+        <service android:name=".MyService"
+            android:enabled="true"
+            android:exported="true"/>
+
+        <service android:name=".MyDownLoadService"
+            android:enabled="true"
+            android:exported="true"
+            />
+        <service android:name=".MyForegroundService"
+            android:enabled="true"
+            android:exported="true"
+            />
     </application>
 
 </manifest>
