@@ -25,3 +25,29 @@
 6. android 7.0行为变更FileProvider,项目中传递file://类似格式的uri,不做处理会触发FileUriExposedException。
 对于面向 Android 7.0 的应用，Android 框架执行的 StrictMode API 政策禁止在您的应用外部公开 file:// URI。如果一项包含文件 URI 的 intent 离开您的应用，则应用出现故障，并出现 FileUriExposedException 异常。
 
+使用libfileprovider处理
+    1.拍照
+    public void takePhotoNoCompress(View view) {
+            Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            String filename = new SimpleDateFormat("yyyyMMdd-HHmmss", Locale.CHINA)
+                    .format(new Date()) + ".png";
+            File file = new File(Environment.getExternalStorageDirectory(), filename);
+            mCurrentPhotoPath = file.getAbsolutePath();
+
+            Uri fileUri = FileProvider7.getUriForFile(this, file);
+            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+            startActivityForResult(takePictureIntent, REQUEST_CODE_TAKE_PHOTO);
+        }
+    }
+
+    2.安装apk
+    public void installApk(View view) {
+        File file = new File(Environment.getExternalStorageDirectory(), "testandroid7-debug.apk");
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        FileProvider7.setIntentDataAndType(this,intent, "application/vnd.android.package-archive", file, true);
+        startActivity(intent);
+    }
+
+
