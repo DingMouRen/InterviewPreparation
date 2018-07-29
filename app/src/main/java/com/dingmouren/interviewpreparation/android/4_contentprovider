@@ -1,1 +1,27 @@
 1.contentprovider主要用于在不同的应用程序之间实现数据共享的功能，可以指定哪部分数据用来共享，从而保证数据的安全性。
+
+2.两种用法
+    1.使用现有的内容提供器来读取和操作相应程序中的数据
+    2.创建自己的内容提供器来给我们程序的数据提供外部访问接口
+
+3.读取联系人，第一种用法，需要加6.0权限处理
+    private void getContacts() {
+        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                String phoneNum = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                Log.e(TAG,"姓名:"+name+" 电话号码:"+phoneNum);
+            }
+        }
+    }
+
+4.路径写法 ：content://com.example.app.provider/table => conntent://包名.provider/表名
+    一个能够匹配任意表的的内容URI:   content://com.example.app.provider/*
+    一个匹配表中任一行输几局的URI:   content://com.example.app.provider/table/#
+
+5.sqlite数据库将数据共享
+
+6. android 7.0行为变更FileProvider,项目中传递file://类似格式的uri,不做处理会触发FileUriExposedException。
+对于面向 Android 7.0 的应用，Android 框架执行的 StrictMode API 政策禁止在您的应用外部公开 file:// URI。如果一项包含文件 URI 的 intent 离开您的应用，则应用出现故障，并出现 FileUriExposedException 异常。
+

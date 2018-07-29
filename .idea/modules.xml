@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/InterviewPreparation.iml" filepath="$PROJECT_DIR$/InterviewPreparation.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libfileprovider/libfileprovider.iml" filepath="$PROJECT_DIR$/libfileprovider/libfileprovider.iml" />
     </modules>
   </component>
 </project>

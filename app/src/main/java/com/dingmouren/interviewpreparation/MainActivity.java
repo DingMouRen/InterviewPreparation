@@ -5,10 +5,13 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -39,6 +42,34 @@ public class MainActivity extends AppCompatActivity {
         fragmentManager.beginTransaction().show(demoFragment1).commit();
         currentFragment = demoFragment1;
 //        startActivity(new Intent(this,SecondActivity.class));
+        if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.READ_CONTACTS},1);
+        }else {
+            getContacts();
+        }
+
+    }
+
+    private void getContacts() {
+        Cursor cursor = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,null,null,null);
+        if (cursor != null){
+            while (cursor.moveToNext()){
+                String name = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+                String phoneNum = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+                Log.e(TAG,"姓名:"+name+" 电话号码:"+phoneNum);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+      switch (requestCode){
+          case 1:
+              if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED ){
+                  getContacts();
+              }
+              break;
+      }
     }
 
     private DemoFragment currentFragment;
