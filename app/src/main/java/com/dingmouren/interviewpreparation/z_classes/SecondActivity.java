@@ -1,13 +1,11 @@
-package com.dingmouren.interviewpreparation;
+package com.dingmouren.interviewpreparation.z_classes;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
+
+import com.dingmouren.interviewpreparation.R;
 
 /**
  * Created by dingmouren on 2018/7/28.

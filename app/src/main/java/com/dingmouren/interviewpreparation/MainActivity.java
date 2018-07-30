@@ -1,8 +1,6 @@
 package com.dingmouren.interviewpreparation;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -22,12 +20,19 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+
+import com.dingmouren.interviewpreparation.z_classes.DemoFragment;
+import com.dingmouren.interviewpreparation.z_classes.MyDownLoadService;
+import com.dingmouren.interviewpreparation.z_classes.MyForegroundService;
+import com.dingmouren.interviewpreparation.z_classes.MyIntentService;
+import com.dingmouren.interviewpreparation.z_classes.MyService;
+import com.dingmouren.interviewpreparation.z_classes.SecondActivity;
+import com.dingmouren.interviewpreparation.z_classes.TestFragment;
+import com.dingmouren.interviewpreparation.z_classes.ThreeActivity;
 
 import java.io.File;
 

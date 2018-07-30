@@ -1,10 +1,9 @@
-package com.dingmouren.interviewpreparation;
+package com.dingmouren.interviewpreparation.z_classes;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.support.v4.app.JobIntentService;
 import android.util.Log;
 
 /**

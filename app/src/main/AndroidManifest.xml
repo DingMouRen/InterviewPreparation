@@ -17,25 +17,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SecondActivity"
+        <activity android:name=".z_classes.SecondActivity"
             android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
             android:launchMode="singleInstance"
             />
-        <activity android:name=".ThreeActivity"/>
+        <activity android:name=".z_classes.ThreeActivity"/>
 
-        <service android:name=".MyService"
+        <service android:name=".z_classes.MyService"
             android:enabled="true"
             android:exported="true"/>
 
-        <service android:name=".MyDownLoadService"
+        <service android:name=".z_classes.MyDownLoadService"
             android:enabled="true"
             android:exported="true"
             />
-        <service android:name=".MyForegroundService"
+        <service android:name=".z_classes.MyForegroundService"
             android:enabled="true"
             android:exported="true"
             />
-        <service android:name=".MyIntentService"
+        <service android:name=".z_classes.MyIntentService"
             android:enabled="true"
             android:exported="true"
             />

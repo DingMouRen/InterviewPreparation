@@ -1,4 +1,4 @@
-package com.dingmouren.interviewpreparation;
+package com.dingmouren.interviewpreparation.z_classes;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 
 /**
  * Created by dingmouren on 2018/7/30.
+ * 用Alarm构建长期运行在后台的定时任务
  */
 
 public class LongRuningService extends Service {
