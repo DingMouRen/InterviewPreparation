@@ -1,0 +1,10 @@
+1.Timer:适合短期的定时任务，手机的休眠策略，会使cpu进入睡眠状态，Timer定时任务就无法正常运行了。
+
+2.Alarm：适合长期在后台运行的定时任务，Alarm具有唤醒cpu的功能，跟唤醒屏幕不是一回事。
+    AlarmManager的工作类型：
+        AlarmManager.ELAPSED_REALTIME:让定时任务的触发时间从系统开机开始算起,但不会唤醒cpu。
+        AlarmManager.ELAPSED_REALTIME_WAKEUP:表示让定时任务的触发时间从系统开机开始算起，但会唤醒cpu.
+        AlarmManager.RTC:表示让定时任务的触发时间从1970年1月1日0点开始算起，但不会唤醒cpu.
+        AlarmManager.RTC_WAKEUP:表示让定时任务的触发时间从1970年1月1日0点开始算起，但会唤醒cpu.
+    SystemClock.elasedRealtime()：可以获取到系统开机至今所经历时间的毫秒数。
+    System.currentTimeMillis()：可以获取到1970年1月1日0点至今所经历时间的毫秒数。

@@ -188,8 +188,23 @@ public class MainActivity extends AppCompatActivity {
         bindService(bindIntent,connection,Context.BIND_AUTO_CREATE);
     }
 
+    public void stopNoteToService(View view){
+        unbindService(connection);
+    }
+
     public void forgroundService(View view){
         Intent intent = new Intent(MainActivity.this,MyForegroundService.class);
+        startService(intent);
+    }
+
+    public void stopForeGroundService(View view){
+
+        Intent intent = new Intent(MainActivity.this,MyForegroundService.class);
+        stopService(intent);
+    }
+
+    public void turnToIntentService(View view){
+        Intent intent = new Intent(MainActivity.this,MyIntentService.class);
         startService(intent);
     }
 
@@ -230,8 +245,6 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
         Log.e(TAG,"onPause");
 
-        Intent intent = new Intent(MainActivity.this,MyForegroundService.class);
-        stopService(intent);
     }
 
     @Override

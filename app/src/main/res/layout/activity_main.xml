@@ -86,8 +86,26 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="解绑activity与服务通信"
+            android:onClick="stopNoteToService"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="前台服务"
             android:onClick="forgroundService"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="解绑前台服务"
+            android:onClick="stopForeGroundService"
+            />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="intentservice"
+            android:onClick="turnToIntentService"
             />
     </LinearLayout>
 </ScrollView>
