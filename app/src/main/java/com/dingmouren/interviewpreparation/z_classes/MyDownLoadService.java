@@ -23,7 +23,7 @@ public class MyDownLoadService extends Service {
         return downLoadBinder;
     }
 
-    class DownLoadBinder extends Binder{
+    public class DownLoadBinder extends Binder{
         private static final String TAG = "DownLoadBinder";
 
         public void startDownLoad(){

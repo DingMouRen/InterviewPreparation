@@ -11,17 +11,24 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
-            <intent-filter>
+           <!-- <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity android:name=".z_classes.SecondActivity"
             android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
             android:launchMode="singleInstance"
             />
         <activity android:name=".z_classes.ThreeActivity"/>
+        <activity android:name=".z_classes.touchEventDispose.TouchEventDisposeActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service android:name=".z_classes.MyService"
             android:enabled="true"

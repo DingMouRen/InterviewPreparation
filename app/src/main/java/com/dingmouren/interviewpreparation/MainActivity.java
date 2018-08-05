@@ -33,6 +33,7 @@ import com.dingmouren.interviewpreparation.z_classes.MyService;
 import com.dingmouren.interviewpreparation.z_classes.SecondActivity;
 import com.dingmouren.interviewpreparation.z_classes.TestFragment;
 import com.dingmouren.interviewpreparation.z_classes.ThreeActivity;
+import com.dingmouren.interviewpreparation.z_classes.touchEventDispose.TouchEventDisposeActivity;
 
 import java.io.File;
 
@@ -211,6 +212,11 @@ public class MainActivity extends AppCompatActivity {
     public void turnToIntentService(View view){
         Intent intent = new Intent(MainActivity.this,MyIntentService.class);
         startService(intent);
+    }
+
+    /*触摸事件处理*/
+    public void touchEventDispose(View view){
+        startActivity(new Intent(this, TouchEventDisposeActivity.class));
     }
 
 

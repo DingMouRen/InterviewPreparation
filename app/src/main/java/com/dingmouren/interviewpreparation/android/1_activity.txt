@@ -27,12 +27,12 @@
 
     生命周期：
     onCreate():创建时调用，用来加载布局，绑定事件
-    onStart():从完全不可见到可见时调用
-    onResume():完全可见，同时可以交互时调用。处于栈顶
-    onPause():去启动另一个activity时调用。1.释放掉消耗cap的资源 2.保存关键数据，不能做大数据的处理，不能影响新的栈顶活动
+     onRestart():activity正在重新启动。从停止状态到运行状态时调用。一般是用户行为所致，比如：用户打开新的activity,当前activity执行onPause onStop,接着用户又返回这个activity,就会执行onRestart
+    onStart():activity正在被启动。此时的actvity没有出现在前台，无法与用户交互，此时activity是可见的，但是处于后台，我们就看不到了。
+    onResume():activity处于前台，完全可见，可以与用户交互。
+    onPause():activity正在停止。1.释放掉消耗cap的资源 2.保存关键数据，不能做大数据的处理，不能影响新的栈顶活动
     onStop():activity完全不可见时调用。启动对话框式activity时，onPause执行，onStop不会执行。释放资源，保证停止状态不会占用太多内存
     onDestory():activity被销毁之前调用。finish()函数只是将activity移出返回栈，onDestroy()才是真正销毁activity占用的内存空间
-    onRestart():从停止状态到运行状态时调用，从不可见到完全可见
     对话框形式的activity:
     继承Activity可以去除actionBar,
      <activity android:name=".SecondActivity"
