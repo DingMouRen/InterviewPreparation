@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -19,14 +18,15 @@ import com.dingmouren.interviewpreparation.R;
  * email: naildingmouren@gmail.com
  * github: https://github.com/DingMouRen
  * 外部拦截法
+ * 外层横向滑动，内层竖向滑动，只需要修改onInterceptTouchEvent就可以了
  */
 
-public class TouchEventDisposeActivity  extends AppCompatActivity {
+public class Demo2Activity extends AppCompatActivity {
     private RecyclerView mRecycler_1,mRecycler_2;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_touch_event_dispose);
+        setContentView(R.layout.activity_touch_event_dispose_demo2);
 
         initView();
     }

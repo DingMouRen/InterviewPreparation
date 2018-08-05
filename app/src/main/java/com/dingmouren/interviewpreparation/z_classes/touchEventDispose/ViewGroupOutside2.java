@@ -2,22 +2,22 @@ package com.dingmouren.interviewpreparation.z_classes.touchEventDispose;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Scroller;
 
 /**
  * Created by dingmouren
  * email: naildingmouren@gmail.com
  * github: https://github.com/DingMouRen
- * 外部拦截法
+ * 内部拦截法
  */
 
-public class HorizontalScrollViewEx extends ViewGroup {
-    private static final String TAG = "HorizontalScrollViewEx";
+public class ViewGroupOutside2 extends ViewGroup {
+    private static final String TAG = "ViewGroupOutside2";
 
     private int mChildrenSize;
     private int mChildWidth;
@@ -33,15 +33,15 @@ public class HorizontalScrollViewEx extends ViewGroup {
     private VelocityTracker mVelocityTracker;
 
 
-    public HorizontalScrollViewEx(Context context) {
+    public ViewGroupOutside2(Context context) {
         this(context,null);
     }
 
-    public HorizontalScrollViewEx(Context context, AttributeSet attrs) {
+    public ViewGroupOutside2(Context context, AttributeSet attrs) {
         this(context, attrs,-1);
     }
 
-    public HorizontalScrollViewEx(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ViewGroupOutside2(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -73,44 +73,34 @@ public class HorizontalScrollViewEx extends ViewGroup {
         }
     }
 
+
     /**
-     * 外部拦截法
+     * 内部拦截法
      * @param ev
      * @return
      */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-       boolean intercepted = false;
        int x = (int) ev.getX();
        int y = (int) ev.getY();
-       switch (ev.getAction()){
-           case MotionEvent.ACTION_DOWN:
-               intercepted = false;
-               if (!mScroller.isFinished()){
-                   mScroller.abortAnimation();
-                   intercepted = true;
-               }
-               break;
-           case MotionEvent.ACTION_MOVE:
-               int deltaX = x - mLastXIntercept;
-               int deltaY = y - mLastYIntercept;
-               if (Math.abs(deltaX) > Math.abs(deltaY)){/*横向滑动*/
-                   intercepted = true;
-               }else {/*竖向滑动*/
-                   intercepted = false;
-               }
-               break;
-           case MotionEvent.ACTION_UP:
-               intercepted = false;
-               break;
-       }
-       mLastX = x;
-       mLastY = y;
-       mLastXIntercept = x;
-       mLastYIntercept = y;
-       return intercepted;
+      if (ev.getAction() == MotionEvent.ACTION_DOWN){
+          mLastX = x;
+          mLastY = y;
+          if (!mScroller.isFinished()){/*横向滑动还没结束时，拦截事件*/
+              mScroller.abortAnimation();
+              return true;
+          }
+          return false;
+      }else {
+          return true;
+      }
     }
 
+    /**
+     * 横向滑动得处理
+     * @param event
+     * @return
+     */
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mVelocityTracker.addMovement(event);
@@ -180,7 +170,6 @@ public class HorizontalScrollViewEx extends ViewGroup {
                 width = widthSize;
                 break;
             case MeasureSpec.AT_MOST:
-                /*这里应该先计算所有子view得宽高，暂时先写死*/
                 width = widthSize;
                 break;
             case MeasureSpec.UNSPECIFIED:
@@ -191,7 +180,6 @@ public class HorizontalScrollViewEx extends ViewGroup {
                 height = heightSize;
                 break;
             case MeasureSpec.AT_MOST:
-                 /*这里应该先计算所有子view得宽高，暂时先写死*/
                  height = heightSize;
                  break;
             case MeasureSpec.UNSPECIFIED:

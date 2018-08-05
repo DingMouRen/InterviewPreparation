@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.dingmouren.interviewpreparation.z_classes.touchEventDispose.ViewGroupOutside2
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    >
+    <com.dingmouren.interviewpreparation.z_classes.touchEventDispose.MyRecyclerView2
+        android:id="@+id/recycler_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.dingmouren.interviewpreparation.z_classes.touchEventDispose.MyRecyclerView2
+        android:id="@+id/recycler_2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+    <com.dingmouren.interviewpreparation.z_classes.touchEventDispose.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="1"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:background="@android:color/black"
+        android:textColor="#ffffff"
+        />
+    <com.dingmouren.interviewpreparation.z_classes.touchEventDispose.MyView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="2"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:background="@android:color/black"
+        android:textColor="#ffffff"
+        />
+
+</com.dingmouren.interviewpreparation.z_classes.touchEventDispose.ViewGroupOutside2>

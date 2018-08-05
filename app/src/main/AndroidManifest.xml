@@ -22,7 +22,11 @@
             android:launchMode="singleInstance"
             />
         <activity android:name=".z_classes.ThreeActivity"/>
-        <activity android:name=".z_classes.touchEventDispose.TouchEventDisposeActivity">
+        <activity android:name=".z_classes.touchEventDispose.Demo1Activity">
+
+        </activity>
+
+        <activity android:name=".z_classes.touchEventDispose.Demo2Activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
