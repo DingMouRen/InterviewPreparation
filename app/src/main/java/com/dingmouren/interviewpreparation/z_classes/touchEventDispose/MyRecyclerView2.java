@@ -46,7 +46,8 @@ public class MyRecyclerView2 extends RecyclerView {
                 int deltaY = y - mLastY;
                 if (Math.abs(deltaX) > Math.abs(deltaY)){
                     /*父布局经过上面按下时不拦截的标志位，子view能接收到move,如果是横向滑动，设置父布局进行拦截*/
-                 getParent().requestDisallowInterceptTouchEvent(false);
+
+                    getParent().requestDisallowInterceptTouchEvent(false);
                 }
                 break;
             case MotionEvent.ACTION_UP:
